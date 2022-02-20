@@ -11,9 +11,7 @@
 		5FF69F8B27C14D0B00B30607 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF69F8A27C14D0B00B30607 /* ContentView.swift */; };
 		5FF69F8D27C14D0F00B30607 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FF69F8C27C14D0F00B30607 /* Assets.xcassets */; };
 		5FF69F9027C14D0F00B30607 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FF69F8F27C14D0F00B30607 /* Preview Assets.xcassets */; };
-		5FF69F9727C15AED00B30607 /* CameraView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF69F9627C15AEC00B30607 /* CameraView2.swift */; };
-		5FF69F9927C1650800B30607 /* SqueezeNet.mlkitmodel in Sources */ = {isa = PBXBuildFile; fileRef = 5FF69F9827C1650700B30607 /* SqueezeNet.mlkitmodel */; };
-		5FF69F9B27C16ECF00B30607 /* Resnet50.mlkitmodel in Sources */ = {isa = PBXBuildFile; fileRef = 5FF69F9A27C16ECF00B30607 /* Resnet50.mlkitmodel */; };
+		5FF69F9D27C19AF200B30607 /* SquirrelClassifier.mlkitmodel in Sources */ = {isa = PBXBuildFile; fileRef = 5FF69F9C27C19AF000B30607 /* SquirrelClassifier.mlkitmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,9 +20,7 @@
 		5FF69F8A27C14D0B00B30607 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5FF69F8C27C14D0F00B30607 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FF69F8F27C14D0F00B30607 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5FF69F9627C15AEC00B30607 /* CameraView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView2.swift; sourceTree = "<group>"; };
-		5FF69F9827C1650700B30607 /* SqueezeNet.mlkitmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlkitmodel; sourceTree = "<group>"; };
-		5FF69F9A27C16ECF00B30607 /* Resnet50.mlkitmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Resnet50.mlkitmodel; sourceTree = "<group>"; };
+		5FF69F9C27C19AF000B30607 /* SquirrelClassifier.mlkitmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SquirrelClassifier.mlkitmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,9 +55,7 @@
 			children = (
 				5FF69F8827C14D0B00B30607 /* SquirrelIOSApp.swift */,
 				5FF69F8A27C14D0B00B30607 /* ContentView.swift */,
-				5FF69F9627C15AEC00B30607 /* CameraView2.swift */,
-				5FF69F9827C1650700B30607 /* SqueezeNet.mlkitmodel */,
-				5FF69F9A27C16ECF00B30607 /* Resnet50.mlkitmodel */,
+				5FF69F9C27C19AF000B30607 /* SquirrelClassifier.mlkitmodel */,
 				5FF69F8C27C14D0F00B30607 /* Assets.xcassets */,
 				5FF69F8E27C14D0F00B30607 /* Preview Content */,
 			);
@@ -147,10 +141,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FF69F8B27C14D0B00B30607 /* ContentView.swift in Sources */,
-				5FF69F9727C15AED00B30607 /* CameraView2.swift in Sources */,
-				5FF69F9927C1650800B30607 /* SqueezeNet.mlkitmodel in Sources */,
-				5FF69F9B27C16ECF00B30607 /* Resnet50.mlkitmodel in Sources */,
 				5FF69F8927C14D0B00B30607 /* SquirrelIOSApp.swift in Sources */,
+				5FF69F9D27C19AF200B30607 /* SquirrelClassifier.mlkitmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

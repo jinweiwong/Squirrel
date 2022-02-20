@@ -11,79 +11,83 @@ import Vision
 
 
 struct ContentView: View {
+    @State private var showInstructions: Bool = true
     var body: some View {
-        CameraView()
+        ZStack {
+            CameraView(showInstructions: self.$showInstructions)
+                .blur(radius: showInstructions ? 5 : 0, opaque: false)
+            if showInstructions {
+                InstructionsView(showInstructions: self.$showInstructions)
+            }
+        }
     }
 }
 
 struct CameraView: View {
     @StateObject var camera = CameraModel()
+    @Binding var showInstructions: Bool
+    
     var body: some View {
         ZStack {
             CameraPreview(camera: camera)
                 .ignoresSafeArea(.all, edges: .all)
+                .onAppear(perform: {
+                    camera.Check()
+                })
+            
             VStack {
-                if camera.isTaken {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            camera.reTake()
-                        }, label: {
-                            Image(systemName: "arrow.triangle.2.circlepath.camera")
-                                .foregroundColor(.black)
-                                .padding()
-                                .background(Color.white)
-                                .clipShape(Circle())
-                        }).padding(.leading)
-                    }
+                if camera.result != nil {
+                    Text("\(camera.result!.identifier == "R" ? "Recyclable" : "Compostable")")
+                        .font(.system(size: 28, weight: .regular))
+                        .foregroundColor(Color.white)
+                        .frame(width: UIScreen.main.bounds.width, height: 50)
+                        .background(camera.result!.identifier == "R" ? Color.green : Color.brown)
                 }
                 Spacer()
                 HStack {
-                    if camera.isTaken {
-                        Button(action: {
-                            if !camera.isSaved {
-                                camera.savePic()
-                            }
-                        }, label: {
-                            Text(camera.isSaved ? "Saved" : "Save")
-                                .foregroundColor(Color.black)
-                                .fontWeight(.semibold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color.white)
-                                .clipShape(Capsule())
-                        }).padding(.leading)
-                        Spacer()
-                    } else {
-                        Button(action: {
-                            camera.takePic()
-                        }, label: {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 65, height: 656)
-                                Circle()
-                                    .stroke(Color.white, lineWidth: 2)
-                                    .frame(width: 75, height: 75)
-                            }
-                        })
+                    Spacer()
+                    Button {
+                        self.showInstructions = true
+                    } label: {
+                        Image(systemName: "info.circle.fill")
+                            .resizable()
+                            .frame(width: 26, height: 26)
+                            .foregroundColor(Color.white)
                     }
-                }.frame(height: 75)
+                }.padding(.bottom, 20)
+                    .padding(.trailing, 20)
             }
-        }.onAppear(perform: {
-            camera.Check()
-        })
+        }
+    }
+}
+
+struct InstructionsView: View {
+    @Binding var showInstructions: Bool
+    var body: some View {
+        Button {
+            self.showInstructions = false
+        } label: {
+            ZStack {
+                Text("Point the camera at your waste")
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(Color.white)
+                VStack {
+                    Spacer()
+                    Text("Tap anywhere on the screen to continue")
+                        .font(.system(size: 8, weight: .regular))
+                        .foregroundColor(Color.white)
+                        .padding(.bottom, 60)
+                }
+            }.ignoresSafeArea(.all)
+        }
     }
 }
 
 class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
-    @Published var isTaken: Bool = false
     @Published var session = AVCaptureSession()
-    @Published var alert: Bool = false
     @Published var output = AVCapturePhotoOutput()
     @Published var preview = AVCaptureVideoPreviewLayer()
-    @Published var isSaved: Bool = false
-    @Published var picData = Data(count: 0)
+    @Published var result: VNClassificationObservation? = nil
     
     func Check() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -96,9 +100,6 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate, AV
                     self.setUp()
                 }
             })
-        case .denied:
-            self.alert.toggle()
-            return
         default:
             return
         }
@@ -122,55 +123,15 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate, AV
         }
     }
     
-    func takePic() {
-        DispatchQueue.global(qos: .background).async {
-            self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-            self.session.stopRunning()
-            DispatchQueue.main.async {
-                withAnimation {
-                    self.isTaken.toggle()
-                }
-            }
-        }
-    }
-    
-    func reTake() {
-        DispatchQueue.global(qos: .background).async {
-            self.session.startRunning()
-            DispatchQueue.main.async {
-                withAnimation {
-                    self.isTaken.toggle()
-                    self.isSaved = false
-                }
-            }
-        }
-    }
-    
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        if error != nil {
-            return
-        }
-        print("Picture taken")
-        guard let imageData = photo.fileDataRepresentation() else {
-            return
-        }
-        self.picData = imageData
-    }
-    
-    func savePic() {
-        let image = UIImage(data: self.picData)!
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        self.isSaved = true
-        print("Saved image")
-    }
-    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        guard let model = try? VNCoreMLModel(for: Resnet50().model) else { return }
+        guard let model = try? VNCoreMLModel(for: SquirrelClassifier(configuration: MLModelConfiguration()).model) else { return }
         let request = VNCoreMLRequest(model: model) { finishedReq, error in
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             guard let firstObservation = results.first else { return }
-            print(firstObservation.identifier, firstObservation.confidence)
+            DispatchQueue.main.async {
+                self.result = firstObservation
+            }
         }
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
     }
