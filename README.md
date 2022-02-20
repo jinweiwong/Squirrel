@@ -13,12 +13,6 @@ Squirrel makes sorting trash more convenient (and accurate!) by eliminating any 
 - Real time image classification developed using Apple’s ML Kit. 
 - Process data taken from the video stream of the device’s camera. 📷
 
-## Installation
-```
-# Clone the repo
-git clone https://github.com/jinweiwong/SquirrelIOS.git
-# Run the app on Xcode 13 and newer. 
-```
 ## Challenges we ran into
 Looking for clean and usable datasets of more niche items like food wrappers, mixed paper and styrofoam. 🍫
 
@@ -33,3 +27,10 @@ Looking for clean and usable datasets of more niche items like food wrappers, mi
 ## What's next for Squirrel
 - Expand and improve the classification model so that it classifies wastes into all four waste categories, landfill, bottles & glass, compost and mixed-paper. 
 - Incorporate a map using MapKit that locates nearby public recycling bins. It would also point out eateries/cafés that support sustainable solutions through eco-friendly habits like the use of compostable cups and reusable shopping bags.
+
+## Installation
+```
+# Clone the repo
+git clone https://github.com/jinweiwong/Squirrel.git
+# Run the app on Xcode 13 and newer. 
+```
