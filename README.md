@@ -3,6 +3,15 @@ by Jin Wei & Chloe.
 
 Submitted to TreeHacks '22.
 
+<p float="left">
+  <img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/840/564/datas/gallery.jpg" width="180">
+  <img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/840/566/datas/gallery.jpg" width="180">
+  <img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/840/563/datas/gallery.jpg" width="180">
+  <img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/840/565/datas/gallery.jpg" width="180">
+  <img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/840/567/datas/gallery.jpg" width="180">
+</p>
+
+
 ## Inspiration
 Recycling is a simple habit that goes a long way in saving the environment. Too many times have our team members stood in front of the recycling bins ♻️, with trash in hand, discussing amongst ourselves which bin each item belongs to. Many individuals, like us, struggle with recycling confusion. Therefore, we came up with Squirrel to overcome this! 
 
