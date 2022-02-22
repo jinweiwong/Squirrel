@@ -30,7 +30,7 @@ Creating a working MVP in just two days!!
 
 ## What we learned
 - To use various Apple frameworks like ML Kit, SwiftUI and Vision to develop an iOS application.
-- Design a clean and user-friendly app interface. 
+- To design a clean and user-friendly app interface. 
 
 ## What's next for Squirrel
 - Expand and improve the classification model so that it classifies wastes into all four waste categories, landfill, bottles & glass, compost and mixed-paper. 
