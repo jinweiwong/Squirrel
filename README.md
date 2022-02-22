@@ -26,8 +26,7 @@ Squirrel makes sorting trash more convenient (and accurate!) by eliminating any 
 Looking for clean and usable datasets of more niche items like food wrappers, mixed paper and styrofoam. 🍫
 
 ## Accomplishments that we're proud of
-- Creating a working MVP in just two days!! 
-- Low-code no-code: fewer than 200 lines of code!
+Creating a working MVP in just two days!! 
 
 ## What we learned
 - To use various Apple frameworks like ML Kit, SwiftUI and Vision to develop an iOS application.
